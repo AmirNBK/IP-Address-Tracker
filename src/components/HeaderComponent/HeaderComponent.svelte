@@ -15,18 +15,18 @@
 
 </script>
 
-<div class="Header relative z-10">
-    <p class="absolute text-3xl left-1/2 -translate-x-1/2 top-6 font-semibold">
+<div class="Header relative z-10 h-72">
+    <p class="absolute text-3xl left-1/2 w-full -translate-x-1/2 top-6 font-semibold">
         IP Address Tracker
     </p>
-    <img src={image} class="w-full" alt="Pattern Background" />
+    <img src={image} class="w-full object-cover h-full" alt="Pattern Background" />
     <div
-        class="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 w-4/12"
+        class="absolute left-1/2 xl:top-1/3 top-32 -translate-x-1/2 -translate-y-1/2 lg:w-4/12 w-10/12"
     >
         <SearchBarComponent />
     </div>
 
-    <div class="w-full absolute top-2/3">
+    <div class="w-full absolute md:top-2/3  top-44">
         {#if $query.isPending}
             Loading...
         {/if}

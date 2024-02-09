@@ -5,7 +5,7 @@
 <div class="SearchBarComponent relative">
     <input
         placeholder="Search for any IP address or domain"
-        class="w-full bg-white rounded-xl p-4 outline-none text-black"
+        class="w-full bg-white rounded-xl p-4 outline-none text-black placeholder:text-sm md:placeholder:text-base"
     />
 
     <div
