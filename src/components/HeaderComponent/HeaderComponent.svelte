@@ -13,12 +13,9 @@
             ).then((r) => r.json()),
     });
 
-    $: {
-            console.log("Response data changed:", $query.data);
-    }
 </script>
 
-<div class="Header relative">
+<div class="Header relative z-10">
     <p class="absolute text-3xl left-1/2 -translate-x-1/2 top-6 font-semibold">
         IP Address Tracker
     </p>

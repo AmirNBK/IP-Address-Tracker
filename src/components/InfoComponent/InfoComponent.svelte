@@ -1,8 +1,8 @@
 <script lang="ts">
-  export let IP;
-  export let Location;
-  export let Timezone;
-  export let ISP;
+  export let IP: string;
+  export let Location: string;
+  export let Timezone: string;
+  export let ISP: string;
 
   const infos = [
     {
@@ -22,11 +22,10 @@
       info: ISP,
     },
   ];
-
 </script>
 
 <div
-  class="InfoComponent bg-white rounded-lg flex flex-row text-black w-8/12 p-12 mx-auto flex flex-row justify-around gap-6"
+  class="InfoComponent bg-white rounded-lg flex flex-row text-black w-fit p-12 mx-auto flex flex-row justify-around gap-6"
 >
   {#each infos as item}
     <div
@@ -37,8 +36,6 @@
     </div>
   {/each}
 </div>
-
-
 
 <style>
 </style>

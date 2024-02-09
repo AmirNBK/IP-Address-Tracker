@@ -1,7 +1,3 @@
-import { defineConfig } from 'vite';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
-
-// Export a Vite configuration object
-export default defineConfig({
-  plugins: [svelte()],
-});
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+const config = {	preprocess: vitePreprocess()};
+export default config;
