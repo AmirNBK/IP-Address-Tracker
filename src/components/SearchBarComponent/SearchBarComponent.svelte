@@ -1,11 +1,23 @@
-<script>
+<script lang="ts">
+    import ip from "../../functions/store";
     import arrow from "../../images/icon-arrow.svg";
+
+    function handleInput(event: Event) {
+        const inputElement = event.target as HTMLInputElement;
+        if (inputElement) {
+            ip.set(inputElement.value);
+        }
+    }
+    $: {
+        console.log($ip);
+    }
 </script>
 
 <div class="SearchBarComponent relative">
     <input
         placeholder="Search for any IP address or domain"
         class="w-full bg-white rounded-xl p-4 outline-none text-black placeholder:text-sm md:placeholder:text-base"
+        on:input={handleInput}
     />
 
     <div
