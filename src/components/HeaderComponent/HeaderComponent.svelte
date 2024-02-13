@@ -10,16 +10,19 @@
         queryKey: ["userInfo"],
         queryFn: async () =>
             await fetch(
-                `https://geo.ipify.org/api/v2/country?apiKey=at_7IQs4y42x4L1YVtt6ZKtWHI6WkwyV&ipAddress=${$ip}`,
+                `https://api.ipgeolocation.io/ipgeo?apiKey=9c095da267384cf0a9fccc8c7cb83ec5&ip=`,
             ).then((r) => r.json()),
     });
 
     $: {
-        if ($ipChange === false || $ipChange === true) {
-            $query.refetch();
-        }
+        // if ($ipChange === false || $ipChange === true) {
+        //     $query.refetch();
+        // }
     }
 
+    // $ : {
+    //     console.log($query.data);
+    // }
 </script>
 
 <div class="Header relative z-10 h-72">
@@ -47,8 +50,8 @@
             {#if $query.isSuccess}
                 <InfoComponent
                     IP={$query.data.ip}
-                    Location={`${$query.data.location.region}, ${$query.data.location.country}`}
-                    Timezone={$query.data.location.timezone}
+                    Location={`${$query.data.country_name}, ${$query.data.city}`}
+                    Timezone={$query.data.time_zone.offset}
                     ISP={$query.data.isp}
                 />
             {/if}
