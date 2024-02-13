@@ -10,13 +10,16 @@
         queryKey: ["userInfo"],
         queryFn: async () =>
             await fetch(
-                "https://geo.ipify.org/api/v2/country?apiKey=at_7IQs4y42x4L1YVtt6ZKtWHI6WkwyV",
+                `https://geo.ipify.org/api/v2/country?apiKey=at_7IQs4y42x4L1YVtt6ZKtWHI6WkwyV&ipAddress=${$ip}`,
             ).then((r) => r.json()),
     });
 
     $: {
-        console.log($ipChange);
+        if ($ipChange === false || $ipChange === true) {
+            $query.refetch();
+        }
     }
+
 </script>
 
 <div class="Header relative z-10 h-72">
@@ -36,19 +39,21 @@
         <SearchBarComponent />
     </div>
 
-    <div class="w-full absolute md:top-2/3 top-44">
-        {#if $query.isPending}
-            Loading...
-        {/if}
-        {#if $query.isSuccess}
-            <InfoComponent
-                IP={$query.data.ip}
-                Location={`${$query.data.location.region}, ${$query.data.location.country}`}
-                Timezone={$query.data.location.timezone}
-                ISP={$query.data.isp}
-            />
-        {/if}
-    </div>
+    {#key $query.data}
+        <div class="w-full absolute md:top-2/3 top-44">
+            {#if $query.isLoading}
+                Loading...
+            {/if}
+            {#if $query.isSuccess}
+                <InfoComponent
+                    IP={$query.data.ip}
+                    Location={`${$query.data.location.region}, ${$query.data.location.country}`}
+                    Timezone={$query.data.location.timezone}
+                    ISP={$query.data.isp}
+                />
+            {/if}
+        </div>
+    {/key}
 </div>
 
 <style>
