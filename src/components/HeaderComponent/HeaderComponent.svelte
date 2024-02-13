@@ -1,28 +1,20 @@
 <script>
-    import { ip, ipChange } from "../../functions/store";
+    import { fetchUserData, ip, ipChange } from "../../functions/store";
     import image from "../../images/pattern-bg-desktop.png";
     import InfoComponent from "../InfoComponent/InfoComponent.svelte";
     import SearchBarComponent from "../SearchBarComponent/SearchBarComponent.svelte";
     import { createQuery } from "@tanstack/svelte-query";
     import { onMount } from "svelte";
 
-    const query = createQuery({
+
+    export const query = createQuery({
         queryKey: ["userInfo"],
-        queryFn: async () =>
-            await fetch(
-                `https://api.ipgeolocation.io/ipgeo?apiKey=9c095da267384cf0a9fccc8c7cb83ec5&ip=`,
-            ).then((r) => r.json()),
+        queryFn: async () => {
+            const ipAddress = $ip;
+            return await fetchUserData(ipAddress);
+        },
     });
 
-    $: {
-        // if ($ipChange === false || $ipChange === true) {
-        //     $query.refetch();
-        // }
-    }
-
-    // $ : {
-    //     console.log($query.data);
-    // }
 </script>
 
 <div class="Header relative z-10 h-72">
