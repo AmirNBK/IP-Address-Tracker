@@ -1,5 +1,6 @@
 <script lang="ts">
-    import ip from "../../functions/store";
+    import { ip } from "../../functions/store";
+    import { ipChange } from "../../functions/store";
     import arrow from "../../images/icon-arrow.svg";
 
     function handleInput(event: Event) {
@@ -7,9 +8,6 @@
         if (inputElement) {
             ip.set(inputElement.value);
         }
-    }
-    $: {
-        console.log($ip);
     }
 </script>
 
@@ -21,7 +19,18 @@
     />
 
     <div
+        role="button"
+        tabindex="0"
+        on:keydown={(event) => {
+            if (event.key === 'Enter' || event.key === 'Space') {
+                ipChange.set(!$ipChange);
+            }
+        }}
+        aria-label="Toggle IP change"
         class="absolute bg-black w-[12%] right-0 rounded-r-xl top-0 h-full flex flex-col items-center justify-center"
+        on:click={() => {
+            ipChange.set(!$ipChange);
+        }}
     >
         <img src={arrow} alt="arrow" />
     </div>

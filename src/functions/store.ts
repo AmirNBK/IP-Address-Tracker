@@ -1,4 +1,4 @@
 import { writable } from 'svelte/store';
-const ip = writable('');
 
-export default ip;
+export const ip = writable('');
+export const ipChange = writable(false);

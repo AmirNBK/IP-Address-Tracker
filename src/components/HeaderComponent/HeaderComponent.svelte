@@ -1,4 +1,5 @@
 <script>
+    import { ip, ipChange } from "../../functions/store";
     import image from "../../images/pattern-bg-desktop.png";
     import InfoComponent from "../InfoComponent/InfoComponent.svelte";
     import SearchBarComponent from "../SearchBarComponent/SearchBarComponent.svelte";
@@ -13,20 +14,29 @@
             ).then((r) => r.json()),
     });
 
+    $: {
+        console.log($ipChange);
+    }
 </script>
 
 <div class="Header relative z-10 h-72">
-    <p class="absolute text-3xl left-1/2 w-full -translate-x-1/2 top-6 font-semibold">
+    <p
+        class="absolute text-3xl left-1/2 w-full -translate-x-1/2 top-6 font-semibold"
+    >
         IP Address Tracker
     </p>
-    <img src={image} class="w-full object-cover h-full" alt="Pattern Background" />
+    <img
+        src={image}
+        class="w-full object-cover h-full"
+        alt="Pattern Background"
+    />
     <div
         class="absolute left-1/2 xl:top-1/3 top-32 -translate-x-1/2 -translate-y-1/2 lg:w-4/12 w-10/12"
     >
         <SearchBarComponent />
     </div>
 
-    <div class="w-full absolute md:top-2/3  top-44">
+    <div class="w-full absolute md:top-2/3 top-44">
         {#if $query.isPending}
             Loading...
         {/if}
