@@ -1,6 +1,5 @@
 <script lang="ts">
-    import { fetchUserData, ip } from "../../functions/store";
-    import { ipChange } from "../../functions/store";
+    import { fetchUserData, finalIp, ip } from "../../functions/store";
     import arrow from "../../images/icon-arrow.svg";
 
     function handleInput(event: Event) {
@@ -22,14 +21,16 @@
         role="button"
         tabindex="0"
         on:keydown={(event) => {
-            if (event.key === 'Enter' || event.key === 'Space') {
-                fetchUserData($ip)
+            if (event.key === "Enter" || event.key === "Space") {
+                fetchUserData($ip);
+                finalIp.set($ip);
             }
         }}
         aria-label="Toggle IP change"
         class="absolute bg-black w-[12%] right-0 rounded-r-xl top-0 h-full flex flex-col items-center justify-center"
         on:click={() => {
-            fetchUserData($ip)
+            fetchUserData($ip);
+            finalIp.set($ip);
         }}
     >
         <img src={arrow} alt="arrow" />

@@ -1,44 +1,33 @@
 <script lang="ts">
+    export let query;
     import L from "leaflet";
     import "leaflet/dist/leaflet.css";
-    import { onMount } from "svelte";
-    import { fetchUserLocation } from "../../functions/userLocation";
+    import { finalIp } from "../../functions/store";
 
-    let userLocation: { latitude: any; longitude: any } | null = null;
-    let error = null;
-
-    async function getUserLocation() {
-        try {
-            userLocation = await fetchUserLocation();
-            leafletMap();
-        } catch (err) {
-            error = err;
-        }
+    $: {
+        $query.data;
+        leafletMap();
     }
 
-    onMount(() => {
-        getUserLocation();
-    });
-
     async function leafletMap() {
-        if (userLocation) {
-            var map = await L.map("map", {
-                center: [userLocation.latitude, userLocation.longitude],
-                zoom: 13,
-            });
+        var map = await L.map("map", {
+            center: [$query.data.latitude, $query.data.longitude],
+            zoom: 13,
+        });
 
-            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-                maxZoom: 19,
-                attribution:
-                    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-            }).addTo(map);
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution:
+                '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        }).addTo(map);
 
-            var marker = L.marker([
-                userLocation.latitude,
-                userLocation.longitude,
-            ]).addTo(map);
-        }
+        var marker = L.marker([
+            $query.data.latitude,
+            $query.data.longitude,
+        ]).addTo(map);
     }
 </script>
 
-<div id="map" class=" z-0 h-screen"></div>
+{#key $finalIp}
+    <div id="map" class=" z-0 h-screen"></div>
+{/key}

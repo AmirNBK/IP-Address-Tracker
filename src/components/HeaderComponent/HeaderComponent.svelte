@@ -1,20 +1,8 @@
 <script>
-    import { fetchUserData, ip, ipChange } from "../../functions/store";
+    export let query;
     import image from "../../images/pattern-bg-desktop.png";
     import InfoComponent from "../InfoComponent/InfoComponent.svelte";
     import SearchBarComponent from "../SearchBarComponent/SearchBarComponent.svelte";
-    import { createQuery } from "@tanstack/svelte-query";
-    import { onMount } from "svelte";
-
-
-    export const query = createQuery({
-        queryKey: ["userInfo"],
-        queryFn: async () => {
-            const ipAddress = $ip;
-            return await fetchUserData(ipAddress);
-        },
-    });
-
 </script>
 
 <div class="Header relative z-10 h-72">
@@ -34,11 +22,11 @@
         <SearchBarComponent />
     </div>
 
-    {#key $query.data}
-        <div class="w-full absolute md:top-2/3 top-44">
-            {#if $query.isLoading}
-                Loading...
-            {/if}
+    <div class="w-full absolute md:top-2/3 top-44">
+        {#if $query.isLoading}
+            Loading...
+        {/if}
+        {#key $query.data}
             {#if $query.isSuccess}
                 <InfoComponent
                     IP={$query.data.ip}
@@ -47,8 +35,8 @@
                     ISP={$query.data.isp}
                 />
             {/if}
-        </div>
-    {/key}
+        {/key}
+    </div>
 </div>
 
 <style>
