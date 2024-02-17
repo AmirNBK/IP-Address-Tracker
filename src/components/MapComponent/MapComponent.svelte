@@ -4,10 +4,13 @@
     import "leaflet/dist/leaflet.css";
     import { finalIp } from "../../functions/store";
     import marker from "../../assets/marker.png";
+    import { onMount } from "svelte";
 
     $: {
-        $query.data;
-        leafletMap();
+        $query.isSuccess;
+        if ($query.isSuccess) {
+            leafletMap();
+        }
     }
 
     async function leafletMap() {
@@ -39,5 +42,8 @@
 </script>
 
 {#key $finalIp}
-    <div id="map" class=" z-0 h-screen"></div>
+    {#if $query.isLoading}
+        Loading...
+    {/if}
+        <div id="map" class=" z-0 h-screen"></div>
 {/key}
