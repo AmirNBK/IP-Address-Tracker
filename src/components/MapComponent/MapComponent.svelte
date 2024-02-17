@@ -3,6 +3,7 @@
     import L from "leaflet";
     import "leaflet/dist/leaflet.css";
     import { finalIp } from "../../functions/store";
+    import marker from "../../assets/marker.png";
 
     $: {
         $query.data;
@@ -21,10 +22,19 @@
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         }).addTo(map);
 
-        var marker = L.marker([
-            $query.data.latitude,
-            $query.data.longitude,
-        ]).addTo(map);
+        var MarkerIcon = L.icon({
+            iconUrl: marker,
+            shadowUrl: "",
+
+            iconSize: [46, 46],
+            shadowSize: [50, 64],
+            iconAnchor: [22, 94],
+            shadowAnchor: [4, 62],
+            popupAnchor: [-3, -76],
+        });
+        L.marker([$query.data.latitude, $query.data.longitude], {
+            icon: MarkerIcon,
+        }).addTo(map);
     }
 </script>
 
