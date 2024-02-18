@@ -1,5 +1,4 @@
 import { writable, type Writable } from 'svelte/store';
-import { createQuery } from "@tanstack/svelte-query";
 
 export const ip: any = writable('');
 export const finalIp = writable('');
@@ -12,5 +11,4 @@ export async function fetchUserData(ipAddress: string) {
         correctIp.set(ip);
         return data;
     }
-
 }

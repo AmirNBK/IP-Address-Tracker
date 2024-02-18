@@ -4,8 +4,6 @@
     import "leaflet/dist/leaflet.css";
     import { finalIp } from "../../functions/store";
     import marker from "../../assets/marker.png";
-    import { onMount } from "svelte";
-
     $: {
         $query.isSuccess;
         if ($query.isSuccess) {
